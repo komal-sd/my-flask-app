@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text
 import os
 from datetime import datetime
 import logging
@@ -40,7 +41,7 @@ def health():
     """Health check endpoint - used by ECS"""
     try:
         # Check if database is accessible
-        db.session.execute('SELECT 1')
+        db.session.execute(text('SELECT 1'))
         logger.info("Health check passed")
         return jsonify({'status': 'healthy', 'timestamp': datetime.utcnow().isoformat()}), 200
     except Exception as e:
