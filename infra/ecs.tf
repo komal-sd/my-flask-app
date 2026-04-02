@@ -28,7 +28,7 @@ resource "aws_ecs_task_definition" "app" {
     }]
     environment = [{
       name  = "DATABASE_URL"
-      value = "postgresql://${var.rds_username}:${jsondecode(aws_secretsmanager_secret_version.rds_password.secret_string)}@${aws_db_instance.main.address}:5432/${var.rds_database_name}"
+      value = "postgresql://${var.rds_username}:${aws_secretsmanager_secret_version.rds_password.secret_string}@${aws_db_instance.main.address}:5432/${var.rds_database_name}"
     }]
     logConfiguration = {
       logDriver = "awslogs"

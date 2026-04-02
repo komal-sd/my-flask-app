@@ -6,3 +6,11 @@ __pycache__/
 venv/
 env/
 .DS_Store
+
+# Terraform
+*.tfvars
+*.tfvars.json
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
