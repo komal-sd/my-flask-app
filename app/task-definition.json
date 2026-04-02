@@ -1,0 +1,36 @@
+{
+  "family": "app",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::724840299458:role/task-management-ecs-task-execution-role",
+  "containerDefinitions": [
+    {
+      "name": "app",
+      "image": "724840299458.dkr.ecr.ap-south-1.amazonaws.com/task-management-app:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 5000,
+          "hostPort": 5000,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "DATABASE_URL",
+          "value": "postgresql://dbadmin:TaskMgmt123!@task-management-db.c7iasuu2okfu.ap-south-1.rds.amazonaws.com:5432/tasksdb"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/task-management",
+          "awslogs-region": "ap-south-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}
